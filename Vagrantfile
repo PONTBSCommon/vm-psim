@@ -13,4 +13,10 @@ Vagrant.configure("2") do |cfg|
   cfg.trigger.before :up do |tr| 
     tr.run = { path: "scripts/triggers/BeforeUp.ps1" }
   end
+  cfg.trigger.after :up do |tr| 
+    tr.run = { path: "scripts/triggers/AfterUp.ps1" }
+  end
+  cfg.trigger.after :destroy do |tr| 
+    tr.run = { path: "scripts/triggers/AfterDestroy.ps1" }
+  end
 end

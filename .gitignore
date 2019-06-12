@@ -1,3 +1,7 @@
 .vagrant/
-git/
-scripts/psim-manage
+psim-manage
+
+ponconf-password.txt
+
+installer/*.exe
+installer/*.txt
