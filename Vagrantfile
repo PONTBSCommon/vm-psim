@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |cfg|
-  cfg.vm.box = "local/win2016"
+  cfg.vm.box_check_update = false
+  cfg.vm.box = "bangma/win2016"
 
   cfg.vm.communicator = "winrm"
   # config.vm.provision "shell", path: "./Provision.ps1"
