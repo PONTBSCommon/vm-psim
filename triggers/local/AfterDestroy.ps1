@@ -1,4 +1,4 @@
-$PsimManagePath = "$PSScriptRoot\..\psim-manage"
+$PsimManagePath = "$PSScriptRoot\..\..\psim-manage"
 
 Write-Host -ForegroundColor Yellow 'Removing psim-manage module.'
 if (Test-Path $PsimManagePath) {

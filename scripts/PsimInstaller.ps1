@@ -1,4 +1,3 @@
-
 #### DEFINE OPTIONS ####
 $PSIM = "C:\\vagrant\\installer\\psim.exe"
 $LICENSE = "C:\\vagrant\\installer\\license.txt"
@@ -46,9 +45,9 @@ if ((Test-Path $PSIM) -and (Test-Path $LICENSE)) {
     Write-Output "PSIM Installer Completed Successfully..."
     $PonConfPassword = $(Get-Content $LICENSE | ? { $_ -like '*auth*' } | % { $_ -replace 'APIsiteAuth = ' })
 
-    Write-Output -ForegroundColor Green "`n`n`tYour initial PonConf Password is:" -NoNewline
-    Write-Output -ForegroundColor Yellow "`t$PonConfPassword"
-    Write-Output $PonConfPassword > ../ponconf-password.txt
+    Write-Output "`n`n`tYour initial PonConf Password is:"
+    Write-Output "`t$PonConfPassword"
+    Write-Output $PonConfPassword | Out-File C:/Users/Vagrant/Desktop/ponconf-password.txt
   }
   $stopwatch.Stop()
 
