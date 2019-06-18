@@ -22,16 +22,23 @@ Vagrant.configure("2") do |c|
   c.vm.network "forwarded_port", guest: 5006, host: 55006, auto_correct: true, id: "debug-port-5006"
   c.vm.network "forwarded_port", guest: 5007, host: 55007, auto_correct: true, id: "debug-port-5007"
 
+  # Install PSIM if the psim.exe and license.txt are present in the ./installer folder. Runs on vagrant up (first time) 
+  # or vagrant provision (anytime)
   #
-  c.vm.provision "shell", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  # Performs a standard install by default. If you need a custom install, remove the psim.exe from the ./installer folder
+  # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer
+  # manually.
+  c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
 
+  # These are scripts that run based on an event happening to this machine.
   c.trigger.before :up do |t| 
+    t.name = "Clone the psim-manage module."
+    t.info = "This module provides control over a psim virtual machine from the command line."
     t.run = { path: "triggers/local/BeforeUp.ps1" }
   end
-  c.trigger.after :provision do |t| 
-    t.run = { path: "triggers/local/AfterUp.ps1" }
-  end
   c.trigger.after :destroy do |t| 
+    t.name = "Remove the psim-manage module"
+    t.info = "So on next create it gets re-pulled and updated."
     t.run = { path: "triggers/local/AfterDestroy.ps1" }
   end
 end
