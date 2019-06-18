@@ -15,19 +15,19 @@ slmgr -rearm
 if ((Test-Path $PSIM) -and (Test-Path $LICENSE)) {
   $RUNCMD = "start /wait $PSIM `"$($OPTIONS -join '|')`""
 
-  Write-Output "Expecting Logfile at: `n`t$LOGFILE"
+  Write-Host -ForegroundColor Yellow "Expecting Logfile at: `n`t$LOGFILE"
   Write-Output "PSIM Installer Location: `n`t$PSIM"
-  Write-Output "Using Options:"
-  $OPTIONS | % { Write-Output "`t $_" }
-  Write-Output "Using run command:`n`t$RUNCMD"
-  Write-Output "Starting PSIM Installer"
+  Write-Host -ForegroundColor Yellow "Using Options:"
+  $OPTIONS | % { Write-Host -ForegroundColor Cyan "`t $_" }
+  Write-Host -ForegroundColor Yellow "Using run command:`n`t$RUNCMD"
+  Write-Host -ForegroundColor Green "Starting PSIM Installer"
     
   #### START THE PSIM INSTALLER ####
   $InstallJob = Start-Job -ScriptBlock { cmd /c "$($args[0])"; return 0 } -ArgumentList $RUNCMD
   
   $stopwatch = [system.diagnostics.stopwatch]::StartNew()
   
-  Write-Output "PSIM InstallJob state is:`n=> $($InstallJob.State)"
+  Write-Host -ForegroundColor Yellow "PSIM InstallJob state is:`n=> $($InstallJob.State)"
   while (!(Test-Path $LOGFILE)) { Start-Sleep -Seconds 1 }
   Write-Output 'Found Logfile. Starting watch ...'
   
@@ -39,19 +39,22 @@ if ((Test-Path $PSIM) -and (Test-Path $LICENSE)) {
     if ($newLines -gt 0) { Get-Content $LOGFILE -Tail $newLines | % { Write-Output "$($stopwatch.elapsed) :: $_" } }
   }
 
+  #### ON INSTALLER COMPLETION ####
   if ($InstallJob.State -eq 'Failed') { 
-    Write-Output "PSIM Installer Failed..." 
+    Write-Host -ForegroundColor Red "PSIM Installer Failed..."; return 1
   } else { 
-    Write-Output "PSIM Installer Completed Successfully..."
+    Write-Host -ForegroundColor Green "PSIM Installer Completed Successfully..."
     $PonConfPassword = $(Get-Content $LICENSE | ? { $_ -like '*auth*' } | % { $_ -replace 'APIsiteAuth = ' })
 
-    Write-Output "`n`n`tYour initial PonConf Password is:"
-    Write-Output "`t$PonConfPassword"
+    Write-Host -ForegroundColor Yellow "`n`n`tYour initial PonConf Password is:" -NoNewline
+    Write-Host -ForegroundColor Magenta "`t$PonConfPassword"
     Write-Output $PonConfPassword | Out-File C:/Users/Vagrant/Desktop/ponconf-password.txt
   }
   $stopwatch.Stop()
 
-  Write-Output -ForegroundColor Green "Your PSIM Installation is complete. Elapsed: $($stopwatch.Elapsed)"
+  #### ONCE THE INSTALLATION IS COMPLETED SUCCESSFULLY, RUN THE FIRST SETUP. ####
+  Write-Host -ForegroundColor Green "Your PSIM Installation is complete. Elapsed: $($stopwatch.Elapsed)"
+  Write-Host -ForegroundColor Yellow 'Running first setup on the remote machine ... '
   & 'C:/vagrant/scripts/FirstRunRemoteSetup.ps1'
 
-} else { Write-Error "Either PSIM Installer or License file is missing. Skipping PSIM Installation...`n`t-Expecting PSIM at: $PSIM`n`t-Expecting license at: $LICENSE" }
+} else { Write-Error "Either PSIM Installer or License file is missing. Skipping PSIM Installation...`n`t-Expecting PSIM at: $PSIM`n`t-Expecting license at: $LICENSE"; return 1 }
