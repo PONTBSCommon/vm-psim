@@ -5,7 +5,6 @@ Vagrant.configure("2") do |c|
   # A notice will be sent out when a new version is available.
   c.vm.box_version = "2019.06.17"
 
-
   # If any of these ports dont seem to work, use the command `vagrant port` to
   # list the ports being forwarded on the vagrant machine.
   c.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true, id: "rdp"
