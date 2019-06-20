@@ -1,10 +1,8 @@
 Vagrant.configure("2") do |c|
+  # always make sure you get the latest box when recreating your machine.
   c.vm.box_check_update = true
   c.vm.box = "bangma/win2016"
-  # this version has the networking fixes. 
-  # A notice will be sent out when a new version is available.
-  c.vm.box_version = "2019.06.17"
-
+  
   # If any of these ports dont seem to work, use the command `vagrant port` to
   # list the ports being forwarded on the vagrant machine.
   c.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true, id: "rdp"
