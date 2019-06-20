@@ -1,4 +1,4 @@
-$SetupMarker = 'C:\Program Files\PrinterOn Corporation\initial-vagrant-setup-marker.txt'
+& "$PSScriptRoot\Globals.ps1"
 
 if (Test-Path $SetupMarker) {
   Write-Host -ForegroundColor Green 'Skipping First Run setup. setup marker is present.'; return

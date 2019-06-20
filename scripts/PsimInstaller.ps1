@@ -1,7 +1,7 @@
+& "$PSScriptRoot\Globals.ps1"
+
 #### DEFINE OPTIONS ####
-$PsimInstaller = "C:\\vagrant\\installer\\psim.exe"
-$LicenseFile = "C:\\vagrant\\installer\\license.txt"
-$InstallationLogfile = "C:\\Program Files (x86)\\PrinterOn Corporation\\PrinterOn Server Install Manager\\Installation History.txt"
+
 $PsimOptions = [ordered]@{
   Mode       = "Auto";
   UserName   = "$($env:COMPUTERNAME)\\vagrant";
@@ -78,6 +78,6 @@ if ((Test-Path $PsimInstaller) -and (Test-Path $LicenseFile)) {
   #### ONCE THE INSTALLATION IS COMPLETED SUCCESSFULLY, RUN THE FIRST SETUP. ####
   Write-Host -ForegroundColor Green "Your PSIM Installation is complete. Elapsed: $($stopwatch.Elapsed)"
   Write-Host -ForegroundColor Yellow 'Running first setup on the remote machine ... '
-  & 'C:/vagrant/scripts/FirstRunRemoteSetup.ps1'
+  & $FirstRunRemoteSetupScript
 
 } else { Write-Error "Either PSIM Installer or License file is missing. Skipping PSIM Installation...`n`t-Expecting PSIM at: $PsimInstaller`n`t-Expecting license at: $LicenseFile"; return 1 }

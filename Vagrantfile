@@ -31,11 +31,11 @@ Vagrant.configure("2") do |c|
   c.trigger.before :up do |t| 
     t.name = "Clone the psim-manage module."
     t.info = "This module provides control over a psim virtual machine from the command line."
-    t.run = { path: "triggers/local/BeforeUp.ps1" }
+    t.run = { path: "triggers/BeforeUp.ps1" }
   end
   c.trigger.after :destroy do |t| 
     t.name = "Remove the psim-manage module"
     t.info = "So on next create it gets re-pulled and updated."
-    t.run = { path: "triggers/local/AfterDestroy.ps1" }
+    t.run = { path: "triggers/AfterDestroy.ps1" }
   end
 end
