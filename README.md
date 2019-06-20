@@ -23,11 +23,18 @@ A PSIM ready Windows Virtualbox for local PSIM development.
  - Run `vagrant destroy --force`
  - Then `vagrant up`
 
+### Upgrading PSIM (Keep Existing Installation)
+ - remove the old `./installer/psim.exe` file.
+ - copy your new psim.exe version into the `./installer` folder with the name `psim.exe`.
+ - run the `vagrant provision` command.
+ - When you see **`Your PSIM Installation is complete.`** and vagrant has rebooted. Your machine is upgraded and ready for use!
+
 ### Upgrading PSIM (Clean Install Upgrade)
  - _This will completely wipe the machine._
  - Replace the `psim.exe` in `./installer` with the new version.
  - Run `vagrant destroy --force`
  - Then `vagrant up`
+
 
 ## Common Commands
 | Command | Description |
@@ -36,3 +43,4 @@ A PSIM ready Windows Virtualbox for local PSIM development.
 | `vagrant up`          | Start your machine. |
 | `vagrant powershell`  | Open a powershell connection to your machine. |
 | `vagrant rdp`         | Open a Remote Desktop Connection with your machine.  |
+| `vagrant provision`   | Run the PsimInstaller script, to upgrade PSIM. |
