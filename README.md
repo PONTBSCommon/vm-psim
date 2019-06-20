@@ -1,6 +1,13 @@
 # vm-psim
 A PSIM ready Windows Virtualbox for local PSIM development.
 
+## Getting Started (From Scratch)
+ - Install Vagrant [Download the latest version here](https://www.vagrantup.com/downloads.html)
+ - Install Virtualbox [Download it here](https://www.virtualbox.org/wiki/Downloads)
+ - Restart your computer.
+ - Clone this repository to an easily accessible location.
+ - Follow the instructions below.
+
 ## PSIM Installation Info
  - Place a PSIM installer in the `./installer` folder.
    - It **must** be named `psim.exe`
