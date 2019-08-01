@@ -1,33 +1,34 @@
-& "$PSScriptRoot\Globals.ps1"
+. 'C:\vagrant\scripts\Globals.ps1'
 
 #### DEFINE OPTIONS ####
+$PsimInstaller = 'C:\\vagrant\\installer\\psim.exe'
+$LicenseFile = 'C:\\vagrant\\installer\\license.txt'
+$InstallationLogfile = 'C:\\Program Files (x86)\\PrinterOn Corporation\\PrinterOn Server Install Manager\\Installation History.txt'
 
 $PsimOptions = [ordered]@{
   Mode       = "Auto";
   UserName   = "$($env:COMPUTERNAME)\\vagrant";
   Password   = "vagrant";
   ConfigFile = $LicenseFile;
+  Features = "All"
 }
 
 $PossibleFeatures = @(
-  "Sun Java SDK",
-  "Docs&Utilities",
-  "Sql Server",
-  "PrintAnywhere Servlet Plugin",
-  "Apache Tomcat",
-  "PrintAnywhere",
-  "Ponconf",
-  "PDS",
-  "Dummy",
-  "ReadMe",
+  "Apache Tomcat",  
   "CPS",
   "IMCAS",
+  "Sql Server",
+  "PasAgent",
+  "PDS",
+  "PDG",
+  "PonDevices"
+  "PrintAnywhere Servlet Plugin",
+  "PrintAnywhere",
+  "Ponconf", 
   "PonUsers",
   "PDG",
   "S3Ninja",
-  "SqlAgent",
-  "PasAgent",
-  "PonDevices"
+  "SqlAgent"
 )
 
 # reset the evaluation time.

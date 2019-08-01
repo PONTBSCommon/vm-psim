@@ -19,8 +19,8 @@ Vagrant.configure("2") do |c|
   c.vm.network "forwarded_port", guest: 5006, host: 55006, auto_correct: true, id: "debug-port-5006"
   c.vm.network "forwarded_port", guest: 5007, host: 55007, auto_correct: true, id: "debug-port-5007"
 
-  # Install PSIM if the psim.exe and license.txt are present in the ./installer folder. Runs on vagrant up (first time) 
-  # or vagrant provision (anytime)
+  # Install PSIM if the psim.exe and license.txt are present in the ./installer folder. Runs on `vagrant up` (first time) 
+  # or `vagrant provision` (anytime)
   #
   # Performs a standard install by default. If you need a custom install, remove the psim.exe from the ./installer folder
   # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer

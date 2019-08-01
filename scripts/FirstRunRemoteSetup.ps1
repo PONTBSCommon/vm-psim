@@ -1,4 +1,4 @@
-& "$PSScriptRoot\Globals.ps1"
+. 'C:\vagrant\scripts\Globals.ps1'
 
 if (Test-Path $SetupMarker) {
   Write-Host -ForegroundColor Green 'Skipping First Run setup. setup marker is present.'; return

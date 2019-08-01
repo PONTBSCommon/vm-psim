@@ -1,4 +1,4 @@
-& "$PSScriptRoot\..\scripts\Globals.ps1"
+. "$PSScriptRoot\..\scripts\Globals.ps1"
 
 if (@(Get-ChildItem $VagrantVirtualboxProviderFolder).Length -ne 0) {
   Write-Host -ForegroundColor Green 'Machine already provisioned. skipping init.'; return
