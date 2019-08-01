@@ -65,9 +65,9 @@ This will update your machine to the latest base box.
 ## PSIM Installation Info
 Open file explorer, and navigate to where you saved the vm-psim folder.
  - Place a PSIM installer in the `installer` sub-folder.
-   - It **must** be named `psim.exe`
+   - It ***must*** be named `psim.exe`
  - Place a valid license file in the `installer` sub-folder.
-   - It **must** be named `license.txt`
+   - It ***must*** be named `license.txt`
 
 Your file structure should resemble:
 ```
@@ -88,6 +88,10 @@ vm-psim/                <-- the vm-psim repository folder.
 ### New Machine (First Time Run)
  - Ensure you have a `psim.exe` and a `license.txt` in the `./installer` folder.
  - Run `vagrant up` in a powershell window.
+    - This step will take about 25 minutes to complete. Go get a coffee. ☕
+ - Once your machine is running you can connect to it!
+  - **Via Remote Desktop:** using the `vagrant rdp` command in the vm-psim folder.
+  - **Via a Powershell Session:** using the `vagrant powershell` command.
 
 ### Existing Machine
  - _This will completely wipe the machine._
