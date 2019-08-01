@@ -1,4 +1,4 @@
-# vm-psim
+# vm-psim   |  PSIM Testing Vagrant Virtual Machine
 A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
