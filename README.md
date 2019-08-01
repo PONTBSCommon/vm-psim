@@ -1,4 +1,4 @@
-# vm-psim   |  PSIM Testing Vagrant Virtual Machine
+# **vm-psim**   |  PSIM Testing Vagrant Virtual Machine
 A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
@@ -22,22 +22,22 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 
 ## Common Commands
 
-| Command               | Description                                           |
-|-----------------------|-------------------------------------------------------|
-| `vagrant halt`        | Shut down your machine. |
-| `vagrant up`          | Start your machine. (Or create one, if it doesn't exist) |
-| `vagrant powershell`  | Open a powershell connection to your machine. |
-| `vagrant rdp`         | Open a Remote Desktop Connection with your machine. |
-| `vagrant provision`   | Run the PsimInstaller script, to upgrade PSIM.  |
-| `vagrant box update`  | Update the base box your machine is built from. |
-| `vagrant destroy -f`  | Delete your VM so a new one can be initialized. |
-| `vagrant port`        | List the ports that your VM is forwarding. (Useful when ports have changed due to collisions).
+| Use                             | Command               | Description                                                                                     |
+|---------------------------------|-----------------------|-------------------------------------------------------------------------------------------------|
+| **Start Up / Create**           | `vagrant up`          | Start your machine. (Or create one, if it doesn't exist)                                        |
+| **Shut Down**                   | `vagrant halt`        | Shut down your machine.                                                                         |
+| **Connect Via Remote Desktop**  | `vagrant rdp`         | Open a Remote Desktop Connection with your machine.                                             |
+| **Connect Via Powershell**      | `vagrant powershell`  | Open a powershell connection to your machine.                                                   |
+| **Delete VM**                   | `vagrant destroy -f`  | Delete your VM so a new one can be initialized.                                                 |
+| **Update VM Image**             | `vagrant box update`  | Update the base box your machine is built from.                                                 |
+| **Upgrade PSIM**                | `vagrant provision`   | Run the PsimInstaller script, to upgrade PSIM.                                                  |
+| **List Ports**                  | `vagrant port`        | List the ports that your VM is forwarding. (Useful when ports have changed due to collisions).  |
 
 ----
 
 ## Getting Started (From Scratch)
- - Install Vagrant [Download the latest version here](https://www.vagrantup.com/downloads.html)
- - Install Virtualbox [Download it here](https://www.virtualbox.org/wiki/Downloads)
+ - Install Vagrant: [Download here.](https://www.vagrantup.com/downloads.html)
+ - Install Virtualbox: [Download here.](https://www.virtualbox.org/wiki/Downloads)
  - Restart your computer.
  - Clone this repository to an easily accessible location.
  - Retrieve a PSIM installer (PSIM.exe). [Go to the PSIM master branch on bamboo.](https://tools.printeron.com/bamboo/browse/DEP-PSIMM41331)
