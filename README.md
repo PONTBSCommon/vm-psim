@@ -3,8 +3,12 @@ A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
 
+----
+
 ## Port Reference
-_Ports may be autocorrected by vagrant if there is a conflict. If you are having issues, run `vagrant port` to list the ports your machine is running._
+
+> Ports may be autocorrected by vagrant if there is a conflict. If you are having issues, run `vagrant port` to list the ports your machine is running.
+
 | Guest | Host | Purpose          |
 |-------|------|------------------|
 | 8057  | 8057 | Ponconf Web      |
