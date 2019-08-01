@@ -17,6 +17,7 @@ _Ports may be autocorrected by vagrant if there is a conflict. If you are having
 ----
 
 ## Common Commands
+
 | Command               | Description                                           |
 |-----------------------|-------------------------------------------------------|
 | `vagrant halt`        | Shut down your machine. |
@@ -66,12 +67,12 @@ Open file explorer, and navigate to where you saved the vm-psim folder.
 
 Your file structure should resemble:
 ```
-vm-psim/          <-- the vm-psim repository folder.
+vm-psim/                <-- the vm-psim repository folder.
   installer/
-    psim.exe      <-- Your psim executable.
-    license.txt   <-- Your license file.
-  Vagrantfile     <-- The configuration for your VM.
-  Readme.md       <-- This help document.
+    psim.exe            <-- Your psim executable.
+    license.txt         <-- Your license file.
+  Vagrantfile           <-- The configuration for your VM.
+  Readme.md             <-- This help document.
   deploy/
     ...
   triggers/
@@ -79,6 +80,7 @@ vm-psim/          <-- the vm-psim repository folder.
   scripts/
     ...
 ```
+
 ### New Machine (First Time Run)
  - Ensure you have a `psim.exe` and a `license.txt` in the `./installer` folder.
  - Run `vagrant up` in a powershell window.
