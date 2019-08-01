@@ -10,29 +10,7 @@ $PsimOptions = [ordered]@{
   UserName   = "$($env:COMPUTERNAME)\\vagrant";
   Password   = "vagrant";
   ConfigFile = $LicenseFile;
-  Features = "All"
 }
-
-$PossibleFeatures = @(
-  "Apache Tomcat",  
-  "CPS",
-  "IMCAS",
-  "Sql Server",
-  "PasAgent",
-  "PDS",
-  "PDG",
-  "PonDevices"
-  "PrintAnywhere Servlet Plugin",
-  "PrintAnywhere",
-  "Ponconf", 
-  "PonUsers",
-  "PDG",
-  "S3Ninja",
-  "SqlAgent"
-)
-
-# reset the evaluation time.
-slmgr -rearm
 
 #### ENSURE LICENSE AND PSIM.EXE ARE PRESENT ####
 if ((Test-Path $PsimInstaller) -and (Test-Path $LicenseFile)) {
