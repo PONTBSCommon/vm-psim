@@ -1,9 +1,5 @@
 .vagrant/
-psim-manage
-
 ponconf-password.txt
-
 installer/*.exe
 installer/*.txt
-
 deploy

@@ -28,16 +28,4 @@ Vagrant.configure("2") do |c|
   # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer
   # manually.
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
-
-  # These are scripts that run based on an event happening to this machine.
-  c.trigger.before :up do |t| 
-    t.name = "Clone the psim-manage module."
-    t.info = "This module provides control over a psim virtual machine from the command line."
-    t.run = { path: "triggers/BeforeUp.ps1" }
-  end
-  c.trigger.after :destroy do |t| 
-    t.name = "Remove the psim-manage module"
-    t.info = "So on next create it gets re-pulled and updated."
-    t.run = { path: "triggers/AfterDestroy.ps1" }
-  end
 end
