@@ -2,4 +2,5 @@
 ponconf-password.txt
 installer/*.exe
 installer/*.txt
+!installer/*.cer
 deploy

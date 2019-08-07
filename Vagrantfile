@@ -15,6 +15,7 @@ Vagrant.configure("2") do |c|
   # access the cps / imcas endpoints on the vm from localhost:9080 or localhost:9443 on your host machine.
   c.vm.network "forwarded_port", guest: 80, host: 9080, auto_correct: true, id: "cps-http"
   c.vm.network "forwarded_port", guest: 443, host: 9443, auto_correct: true, id: "cps-https"
+  c.vm.network "forwarded_port", guest: 631, host: 9631, auto_correct: true, id: "pds"
 
   # set a debug port in the vm to any of 5005-5007 and set your local intellij to the corresponding 55005-55007 port.
   c.vm.network "forwarded_port", guest: 5005, host: 55005, auto_correct: true, id: "debug-port-5005"
