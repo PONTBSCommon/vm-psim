@@ -58,5 +58,3 @@ $InstallTimer.Stop()
 
 #### ONCE THE INSTALLATION IS COMPLETED SUCCESSFULLY, RUN THE FIRST SETUP. ####
 Write-Host -ForegroundColor Green "Your PSIM Installation is complete. Elapsed: $($InstallTimer.Elapsed)"
-Write-Host -ForegroundColor Yellow 'Running first setup on the remote machine ... '
-& $FirstRunRemoteSetupScript

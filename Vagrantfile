@@ -3,7 +3,11 @@ Vagrant.configure("2") do |c|
   c.vm.box_check_update = true
   c.vm.box = "bangma/win2016"
   c.vm.communicator = "winrm"
-  c.vm.post_up_message = "MACHINE LOADED! RDP with =>     vagrant rdp"
+  c.vm.post_up_message = <<-POST_UP_MESSAGE
+  VM-PSIM is running! Here's some options:
+    start an RDP connection with        =>      vagrant rdp
+    connect on the command line with    =>      vagrant powershell
+  POST_UP_MESSAGE
 
   # If any of these ports dont seem to work, use the command `vagrant port` to
   # list the ports being forwarded on the vagrant machine.
@@ -29,4 +33,5 @@ Vagrant.configure("2") do |c|
   # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer
   # manually.
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  c.vm.provision "shell", name: "First Run Configurations", privileged: true, reboot: false, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end
