@@ -1,3 +1,8 @@
+#####################################################
+#### THIS SCRIPT ADDS A CONTEXT MENU FOR VAGRANT ####
+#####################################################
+
+
 $DirectoryRightClickContextMenuRegistry = 'HKCR:\Directory\Background\shell'
 $ContextMenuSubCommandRegistry = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell'
 
