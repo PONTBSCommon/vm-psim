@@ -1,9 +1,25 @@
+MACHINE_NAME = "(Vagrant PSIM) " + File.dirname(__FILE__).sub("C:/","C_").sub("/","_")
+
+puts "Interacting with machine: #{MACHINE_NAME}"
 Vagrant.configure("2") do |c|
   # always make sure you get the latest box when recreating your machine.
   c.vm.box_check_update = true
   c.vm.box = "bangma/win2016"
   c.vm.communicator = "winrm"
-  c.vm.post_up_message = "MACHINE LOADED! RDP with =>     vagrant rdp"
+  
+  c.vm.provider "virtualbox" do |v|
+    v.name = "#{MACHINE_NAME}"
+  end
+
+  c.vm.post_up_message = <<-POST_UP_MESSAGE
+
+
+  VM-PSIM is running! Here's some options:
+    start an RDP connection with        =>      vagrant rdp
+    connect on the command line with    =>      vagrant powershell
+
+    
+  POST_UP_MESSAGE
 
   # If any of these ports dont seem to work, use the command `vagrant port` to
   # list the ports being forwarded on the vagrant machine.
@@ -15,6 +31,7 @@ Vagrant.configure("2") do |c|
   # access the cps / imcas endpoints on the vm from localhost:9080 or localhost:9443 on your host machine.
   c.vm.network "forwarded_port", guest: 80, host: 9080, auto_correct: true, id: "cps-http"
   c.vm.network "forwarded_port", guest: 443, host: 9443, auto_correct: true, id: "cps-https"
+  c.vm.network "forwarded_port", guest: 631, host: 9631, auto_correct: true, id: "pds"
 
   # set a debug port in the vm to any of 5005-5007 and set your local intellij to the corresponding 55005-55007 port.
   c.vm.network "forwarded_port", guest: 5005, host: 55005, auto_correct: true, id: "debug-port-5005"
@@ -28,4 +45,5 @@ Vagrant.configure("2") do |c|
   # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer
   # manually.
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  c.vm.provision "shell", name: "First Run Configurations", privileged: true, reboot: true, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end

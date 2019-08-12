@@ -35,18 +35,6 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 
 ----
 
-## Getting Started (From Scratch)
- - Install Vagrant: [Download here.](https://www.vagrantup.com/downloads.html)
- - Install Virtualbox: [Download here.](https://www.virtualbox.org/wiki/Downloads)
- - Restart your computer.
- - Clone this repository to an easily accessible location.
- - Retrieve a PSIM installer (PSIM.exe). [Go to the PSIM master branch on bamboo.](https://tools.printeron.com/bamboo/browse/DEP-PSIMM41331)
- - Get a license file, send a message in the slack `#yfk-all-dev` room. Someone will have an extra `license.txt`, or speak to Nowshi for help.
-
- - Follow the instructions below, under the header: **PSIM Installation Info `=>` New Machine (First Time Run)**
-
-----
-
 ## General Information
 - The main administrator user is `vagrant`, the password is `vagrant`.
 - The password for the `Administrator` account is also `vagrant`. However, you shouldn't need to use it, since `vagrant` is an admin.
@@ -60,6 +48,22 @@ run the command:
 This will update your machine to the latest base box.
 > **Note:** You will not be able to see changes until you `vagrant destroy` and `vagrant up` to create a machine from the new base box.
 
+### Adding vagrant commands to your context menu
+If you want vagrant commands in your right-click context menu.
+- Open a powershell window and run the script under `./scripts/VagrantContextEntries.ps1`
+> If you are not in an admin powershell window it will ask you to launch one.
+----
+
+## Getting Started (From Scratch)
+ - Install Vagrant: [Download here.](https://www.vagrantup.com/downloads.html)
+ - Install Virtualbox: [Download here.](https://www.virtualbox.org/wiki/Downloads)
+ - Restart your computer.
+ - Clone this repository to an easily accessible location.
+ - Retrieve a PSIM installer (PSIM.exe). [Go to the PSIM master branch on bamboo.](https://tools.printeron.com/bamboo/browse/DEP-PSIMM41331)
+ - Get a license file, send a message in the slack `#yfk-all-dev` room. Someone will have an extra `license.txt`, or speak to Nowshi for help.
+
+ - Follow the instructions below, under the header: **PSIM Installation Info `=>` New Machine (First Time Run)**
+
 ----
 
 ## PSIM Installation Info
@@ -68,6 +72,8 @@ Open file explorer, and navigate to where you saved the vm-psim folder.
    - It ***must*** be named `psim.exe`
  - Place a valid license file in the `installer` sub-folder.
    - It ***must*** be named `license.txt`
+ - If you wish to install **all** components, instead of just a standard install. Add: `full_install.txt` to the `installer` subfolder.
+   - It ***must*** be named `full_install.txt` for a full install to be triggered.
 
 Your file structure should resemble:
 ```
@@ -75,6 +81,7 @@ vm-psim/                <-- the vm-psim repository folder.
   installer/
     psim.exe            <-- Your psim executable.
     license.txt         <-- Your license file.
+    full_install.txt    <-- (optional) if you want a full install, instead of a standard install.
   Vagrantfile           <-- The configuration for your VM.
   Readme.md             <-- This help document.
   deploy/
