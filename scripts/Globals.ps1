@@ -8,6 +8,7 @@ $MobileCertificateSaveLocation = 'C:\Users\vagrant\Downloads\atca.cer'
 $InstallationLogfile = 'C:\\Program Files (x86)\\PrinterOn Corporation\\PrinterOn Server Install Manager\\Installation History.txt' 
 $PsimInstaller = 'C:\\vagrant\\installer\\psim.exe'
 $LicenseFile = 'C:\\vagrant\\installer\\license.txt'
+$FullInstallIndicator = 'C:\\vagrant\\installer\\full_install.txt'
 
 #### STANDARD VM-PSIM PATHS ####
 $PsimManagePath = "$PSScriptRoot\..\psim-manage"

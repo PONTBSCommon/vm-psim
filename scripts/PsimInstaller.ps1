@@ -1,23 +1,33 @@
 . 'C:\vagrant\scripts\Globals.ps1'
 
-
-#### DEFINE OPTIONS ####
-$PsimOptions = [ordered]@{
-  Mode       = "Auto";
-  UserName   = "$($env:COMPUTERNAME)\\vagrant";
-  Password   = "vagrant";
-  ConfigFile = $LicenseFile;
-}
-
-
 #### ENSURE LICENSE AND PSIM.EXE ARE PRESENT ####
 if (!(Test-Path $PsimInstaller) -or !(Test-Path $LicenseFile)) {
   Write-Error "Either PSIM Installer or License file is missing. Skipping PSIM Installation...`n`t-Expecting PSIM at: $PsimInstaller`n`t-Expecting license at: $LicenseFile"; return 1
 }
 
+#### DEFINE OPTIONS ####
+$PsimOptions = [ordered]@{
+  Mode       = 'Auto';
+  InstallType = 'Install';
+  UserName   = "$($env:COMPUTERNAME)\\vagrant";
+  Password   = 'vagrant';
+  ConfigFile = $LicenseFile;
+}
+
+#### IF THE FULL_INSTALL.TXT FILE IS PRESENT. DO A FULL INSTALL ####
+if (Test-Path $FullInstallIndicator) {
+  
+  Write-Host "`n`nFound Full Install flag. Initiating a complete 'custom' install.`n`n"
+
+  $PsimOptions.Add('Features', @(
+    'PrintAnywhere', 'S3Ninja',
+    'Ponconf', 'IMCAS', 'PDS', 'PDH', 'CPS', 'PDG',
+    'PonUsers', 'SqlAgent', 'PasAgent', 'PonDevices'
+  ) -join ',')
+}
 
 #### START PSIM INSTALLATION ####
-$PsimOptionString = $(($PsimOptions.GetEnumerator() | % { $_.Key + ":" + $_.Value }) -join '|')
+$PsimOptionString = $(($PsimOptions.GetEnumerator() | % { $_.Key + ":" + $_.Value }) -join ' | ')
 $cmdPromptCommand = "start /wait $PsimInstaller `"$PsimOptionString`""
 
 Write-Host -ForegroundColor Yellow "Expecting Logfile at: `n`t$InstallationLogfile"
