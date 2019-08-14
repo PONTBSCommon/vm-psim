@@ -1,31 +1,54 @@
+# Your MACHINE_NAME will be the directory of your machine with unsafe characters replaced. eg:: C__USERS_PROJECTS_VM-PSIM
+# From: https://support.microsoft.com/en-gb/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and
+# NetBIOS computer names cannot contain the following characters: \ / : * ? " < > |
+
+MACHINE_NAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/i,'').upcase
+
+# Add more machine ports here.
+PORTS_TO_FORWARD = {
+  "80" => "8080",     # http tomcat  
+  "443" => "8443",    # https tomcat
+  "1433" => "1433",   # mssql studio
+  "3389" => "33389",  # remote desktop forwarding
+  "8057" => "8057"    # ponconf
+  
+}
+
+puts "Interacting with Machine: #{MACHINE_NAME} in: #{Dir.pwd}"
+puts "#{ENV['FULL_INSTALL']}"
 Vagrant.configure("2") do |c|
   # always make sure you get the latest box when recreating your machine.
   c.vm.box_check_update = true
   c.vm.box = "bangma/win2016"
   c.vm.communicator = "winrm"
-  c.vm.post_up_message = "MACHINE LOADED! RDP with =>     vagrant rdp"
+  
+  c.vm.post_up_message = <<-post_up_message
+  VM-PSIM is running! Here's some options:
+    start an RDP connection with        =>      vagrant rdp
+    connect on the command line with    =>      vagrant powershell
+  post_up_message
 
-  # If any of these ports dont seem to work, use the command `vagrant port` to
-  # list the ports being forwarded on the vagrant machine.
-  c.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true, id: "rdp"
+  #### This section deals with naming the machine. ####
+  c.vm.define "#{MACHINE_NAME}"     # sets the name in the vagrant output.
+  c.vm.hostname = MACHINE_NAME                # sets the windows hostname.
+  c.vm.provider "virtualbox" do |v|           # sets the name in virtualbox.
+    v.name = MACHINE_NAME
+  end
 
-  # access the vm's ponconf from https://localhost:8057
-  c.vm.network "forwarded_port", guest: 8057, host: 8057, auto_correct: true, id: "ponconf-web"
+  # forward the ports listed above out from the vagrant machine.
+  PORTS_TO_FORWARD.each do |guest,host|
+    c.vm.network "forwarded_port", guest: "#{guest}", host: "#{host}", auto_correct: true
+  end
 
-  # access the cps / imcas endpoints on the vm from localhost:9080 or localhost:9443 on your host machine.
-  c.vm.network "forwarded_port", guest: 80, host: 9080, auto_correct: true, id: "cps-http"
-  c.vm.network "forwarded_port", guest: 443, host: 9443, auto_correct: true, id: "cps-https"
+  # forward two collections of debug ports. 
+  (5000..5009).each do |p|
+    c.vm.network "forwarded_port", guest: "#{p}", host: "5#{p}", auto_correct: true, id: "debug-port-#{p}"
+  end
+  (5990..5999).each do |p|
+    c.vm.network "forwarded_port", guest: "#{p}", host: "5#{p}", auto_correct: true, id: "debug-port-#{p}"
+  end
 
-  # set a debug port in the vm to any of 5005-5007 and set your local intellij to the corresponding 55005-55007 port.
-  c.vm.network "forwarded_port", guest: 5005, host: 55005, auto_correct: true, id: "debug-port-5005"
-  c.vm.network "forwarded_port", guest: 5006, host: 55006, auto_correct: true, id: "debug-port-5006"
-  c.vm.network "forwarded_port", guest: 5007, host: 55007, auto_correct: true, id: "debug-port-5007"
-
-  # Install PSIM if the psim.exe and license.txt are present in the ./installer folder. Runs on `vagrant up` (first time) 
-  # or `vagrant provision` (anytime)
-  #
-  # Performs a standard install by default. If you need a custom install, remove the psim.exe from the ./installer folder
-  # until after the machine creation has completed. You may then vagrant rdp into the machine and run the PSIM installer
-  # manually.
+  # install PSIM if the psim.exe and license.txt are present in the ./installer folder.
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: true, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end

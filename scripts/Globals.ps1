@@ -12,3 +12,4 @@ $PSModulesPath = ($env:PSModulePath -split ';' | ? { $_ -like '*Documents\Window
 #### PSIM INSTALLER CONSTANTS ####
 $PsimInstaller = 'C:\\vagrant\\installer\\psim.exe'
 $LicenseFile = 'C:\\vagrant\\installer\\license.txt'
+$FullInstallFile = 'C:\\vagrant\\installer\\full_install.txt'

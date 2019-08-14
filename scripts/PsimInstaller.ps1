@@ -1,13 +1,13 @@
 . 'C:\vagrant\scripts\Globals.ps1'
-
-
 #### DEFINE OPTIONS ####
 $PsimOptions = [ordered]@{
-  Mode       = "Auto";
+  Mode       = 'Auto';
   UserName   = "$($env:COMPUTERNAME)\\vagrant";
   Password   = "vagrant";
   ConfigFile = $LicenseFile;
+  # InstallType = 'Install';
 }
+
 
 
 #### ENSURE LICENSE AND PSIM.EXE ARE PRESENT ####
@@ -15,6 +15,13 @@ if (!(Test-Path $PsimInstaller) -or !(Test-Path $LicenseFile)) {
   Write-Error "Either PSIM Installer or License file is missing. Skipping PSIM Installation...`n`t-Expecting PSIM at: $PsimInstaller`n`t-Expecting license at: $LicenseFile"; return 1
 }
 
+if (Test-Path $FullInstallFile) {
+  $PsimOptions.Add('Features', 
+    ('Sun Java SDK', 'Docs&Utilities', 'Sql Server', 'PrintAnywhere Servlet Plugin', 'Apache Tomcat', 'PrintAnywhere', 'Ponconf', 'PDS', 'Dummy', 'ReadMe', 'CPS', 'IMCAS', 'PonUsers', 'PDG', 
+      'S3Ninja', 'SqlAgent', 'PasAgent', 'PonDevices', 'Sun Java SDK', 'Docs&Utilities', 'Sql Server', 'PrintAnywhere Servlet Plugin', 'Apache Tomcat', 'PrintAnywhere', 'Ponconf', 'PDS', 
+      'Dummy', 'ReadMe', 'CPS', 'IMCAS', 'PonUsers', 'PDG', 'S3Ninja', 'SqlAgent', 'PasAgent', 'PonDevices') -join ','
+  )
+}
 
 #### START PSIM INSTALLATION ####
 $PsimOptionString = $(($PsimOptions.GetEnumerator() | % { $_.Key + ":" + $_.Value }) -join '|')
