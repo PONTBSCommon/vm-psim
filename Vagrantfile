@@ -15,7 +15,6 @@ PORTS_TO_FORWARD = {
 }
 
 puts "Interacting with Machine: #{MACHINE_NAME} in: #{Dir.pwd}"
-puts "#{ENV['FULL_INSTALL']}"
 Vagrant.configure("2") do |c|
   # always make sure you get the latest box when recreating your machine.
   c.vm.box_check_update = true
