@@ -3,3 +3,4 @@ ponconf-password.txt
 installer/*.exe
 installer/*.txt
 deploy
+*.exe
