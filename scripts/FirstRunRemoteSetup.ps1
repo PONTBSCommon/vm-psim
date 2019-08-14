@@ -5,7 +5,7 @@ if (Test-Path $SetupMarker) {
 }
 
 Write-Host -ForegroundColor Yellow 'Add file that indicated this initial setup has been done before.'
-echo 'DO NOT REMOVE' > $SetupMarker
+New-Item -Force $SetupMarker; echo 'DO NOT REMOVE' > $SetupMarker
 
 Write-Host -ForegroundColor Yellow "Installing zip tools."
 choco install zip unzip

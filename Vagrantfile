@@ -20,6 +20,7 @@ Vagrant.configure("2") do |c|
   c.vm.box_check_update = true
   c.vm.box = "bangma/win2016"
   c.vm.communicator = "winrm"
+  c.vm.usable_port_range = 2200..59999
   
   c.vm.post_up_message = <<-post_up_message
   VM-PSIM is running! Here's some options:
@@ -48,6 +49,6 @@ Vagrant.configure("2") do |c|
   end
 
   # install PSIM if the psim.exe and license.txt are present in the ./installer folder.
-  c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  # c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
   c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: true, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end
