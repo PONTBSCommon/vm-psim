@@ -3,21 +3,17 @@ A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
 
-----
+## Breaking Change Support ##
+Old machine may not connect anymore. You should delete and recreate your machines. If you cannot currently, here is a workaround:
+Change the line `v.name` in:
+```
+c.vm.provider "virtualbox" do |v|
+    v.name = "#{HOSTNAME}" # virtualbox name
+  end
+```
+from `"#{HOSTNAME}"` to whatever the name of your machine is in the virtualbox UI (usually `vm-psim-default-.....`).
 
-## Port Reference
-
-> Ports may be autocorrected by vagrant if there is a conflict. If you are having issues, run `vagrant port` to list the ports your machine is running.
-
-| Guest | Host | Purpose          |
-|-------|------|------------------|
-| 8057  | 8057 | Ponconf Web      |
-| 80    | 9080 | cps http access  |
-| 443   | 9443 | cps https access |
-| 5005  | 55005| debug port       |
-| 5006  | 55006| debug port       |
-| 5007  | 55007| debug port       |
-
+> Currently the vagrant mv domain names are still not accessible outside of the local computer.
 ----
 
 ## Common Commands
@@ -31,15 +27,19 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 | **Delete VM**                   | `vagrant destroy -f`  | Delete your VM so a new one can be initialized.                                                 |
 | **Update VM Image**             | `vagrant box update`  | Update the base box your machine is built from.                                                 |
 | **Upgrade PSIM**                | `vagrant provision`   | Run the PsimInstaller script, to upgrade PSIM.                                                  |
-| **List Ports**                  | `vagrant port`        | List the ports that your VM is forwarding. (Useful when ports have changed due to collisions).  |
+| **Reload (Restart Machine)**    | `vagrant reload`      | This command restarts the vagrant machine, and picks up any changes to the vagrant file.        |
+| **Show Machine Status (and IP)**| `vagrant status`      | This will tell you if your machine is running. and will also print out your ip, and domain.     |
 
 ----
 
 ## General Information
 - The main administrator user is `vagrant`, the password is `vagrant`.
 - The password for the `Administrator` account is also `vagrant`. However, you shouldn't need to use it, since `vagrant` is an admin.
+- You can reach your vagrant machine at `{MACHINE_NAME}`, for you convenience the domain and IP are printed when the machine is created.
 
 ### Updating your base box
+> ***Only do this step if you are notified on slack of a new base box version.***
+
 To update your base box. Open a powershell window, and navigate to the vm-psim folder.
 run the command:
 ``` Powershell
@@ -86,9 +86,7 @@ vm-psim/                <-- the vm-psim repository folder.
   Readme.md             <-- This help document.
   deploy/
     ...
-  triggers/
-    ...
-  scripts/
+  scripts/              <-- Setup scripts for the machine (Don't touch)
     ...
 ```
 
