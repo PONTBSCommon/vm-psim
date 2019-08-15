@@ -2,7 +2,7 @@
 # From: https://support.microsoft.com/en-gb/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and
 # NetBIOS computer names cannot contain the following characters: \ / : * ? " < > |
 MACHINE_NAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/i,'').upcase
-MACHINE_IP = ("#{`ping -n 1 #{MACHINE_NAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
+MACHINE_IP = ("#{`ping -4 -n 1 #{MACHINE_NAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
 
 puts "Interacting with Machine: #{MACHINE_NAME} in: #{Dir.pwd}"
 puts "[https://#{MACHINE_NAME.downcase}.printeron.local] has the IP: [#{MACHINE_IP}]\n"
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |c|
   end
 
   #### Output the machine IP after provisioning has completed.
-  c.trigger.after :provision do |t| 
+  c.trigger.after :up, do |t| 
     t.ruby do || puts "[#{MACHINE_NAME}.printeron.local] has the IP: [#{MACHINE_IP}]\n" end
   end
 
