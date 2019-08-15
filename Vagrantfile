@@ -2,8 +2,10 @@
 # From: https://support.microsoft.com/en-gb/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and
 # NetBIOS computer names cannot contain the following characters: \ / : * ? " < > |
 MACHINE_NAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/i,'').upcase
+PING_RESP = "#{`ping -n 1 #{MACHINE_NAME}`}" || 'NO_ADDRESS_FOUND'
+MACHINE_IP = PING_RESP.match(/\d*\.\d*\.\d*\.\d*/)[0]
 puts "Interacting with Machine: #{MACHINE_NAME} in: #{Dir.pwd}"
-puts "[#{MACHINE_NAME}.printeron.local] has the IP: [#{`ping -n 1 #{MACHINE_NAME}`.match(/\d*\.\d*\.\d*\.\d*/)[0] || 'NO_ADDRESS_FOUND'}]\n"
+puts "[#{MACHINE_NAME}.printeron.local] has the IP: [#{MACHINE_IP}]\n"
 
 Vagrant.configure("2") do |c|
   # always make sure you get the latest box when recreating your machine.
