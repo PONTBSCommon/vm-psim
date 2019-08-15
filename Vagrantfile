@@ -2,7 +2,7 @@
 #### From: https://support.microsoft.com/en-gb/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and
 #### NetBIOS computer names cannot contain the following characters: \ / : * ? " < > |
 HOSTNAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/i,'').upcase
-MACHINE_IP = ("#{`ping -4 -n 1 #{MACHINE_NAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
+MACHINE_IP = ("#{`ping -4 -n 1 #{HOSTNAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
 MACHINE_IP = 'NO_ADDRESS_FOUND' if MACHINE_IP.include? "Request timed out."
 MACHINE_IP = 'NO_ADDRESS_FOUND' if MACHINE_IP.include? "Ping request could not find host"
 
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |c|
   c.vm.define "#{HOSTNAME.downcase}" # vagrant machine name
   c.vm.hostname = HOSTNAME # windows hostname
   c.vm.provider "virtualbox" do |v|
-    v.name = "#{HOSTNAME.downcase}" # virtualbox name
+    v.name = "#{HOSTNAME}" # virtualbox name
   end
 
   #### Flush DNS entries for the machines before up. ####
