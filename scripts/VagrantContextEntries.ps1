@@ -2,18 +2,18 @@
 #### THIS SCRIPT ADDS A CONTEXT MENU FOR VAGRANT ####
 #####################################################
 
-
 $DirectoryRightClickContextMenuRegistry = 'HKCR:\Directory\Background\shell'
 $ContextMenuSubCommandRegistry = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\Shell'
 
-$ExecutionLevel = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 $ExitIfNoVagrantFile = "if (!(Test-Path ./Vagrantfile)) { exit };"
 $PressEnterToExit = "Read-Host 'Press Enter to Exit'; exit;"
 $PressEnterToContinue = "Read-Host 'Press Enter to Continue';"
 $PowershellCommandBase = "powershell.exe -noexit -noprofile -command Set-Location -literalPath '%V';$ExitIfNoVagrantFile;Write-Host 'Running command in:' (Get-Location);"
-$ShellIsElevated = $ExecutionLevel.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-$VagrantMenuDisplayName = "Vagrant Menu"
 
+$ExecutionLevel = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+$ShellIsElevated = $ExecutionLevel.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+$VagrantMenuDisplayName = "Vagrant Menu"
 $EntriesToCreate = [ordered]@{
   'Remote Desktop'   = "$PowershellCommandBase vagrant rdp;";
   'Start | Create'   = "$PowershellCommandBase vagrant up;$PressEnterToExit";
