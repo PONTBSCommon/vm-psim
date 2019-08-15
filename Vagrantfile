@@ -5,7 +5,7 @@ MACHINE_NAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/
 MACHINE_IP = ("#{`ping -n 1 #{MACHINE_NAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
 
 puts "Interacting with Machine: #{MACHINE_NAME} in: #{Dir.pwd}"
-puts "[#{MACHINE_NAME}.printeron.local] has the IP: [#{MACHINE_IP}]\n"
+puts "[https://#{MACHINE_NAME.downcase}.printeron.local] has the IP: [#{MACHINE_IP}]\n"
 
 Vagrant.configure("2") do |c|
   # always make sure you get the latest box when recreating your machine.
@@ -27,7 +27,12 @@ Vagrant.configure("2") do |c|
     v.name = MACHINE_NAME
   end
 
+  #### Output the machine IP after provisioning has completed.
+  c.trigger.after :provision do |t| 
+    t.ruby do || puts "[#{MACHINE_NAME}.printeron.local] has the IP: [#{MACHINE_IP}]\n" end
+  end
+
   # install PSIM if the psim.exe and license.txt are present in the ./installer folder.
-  # c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
+  c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
   c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: true, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end
