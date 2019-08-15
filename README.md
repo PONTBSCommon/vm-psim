@@ -3,7 +3,15 @@ A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
 
-**Please always attempt to access your machine by its `*.printeron.local` domain name.**
+## Breaking Change Support ##
+Old machine may not connect anymore. You should delete and recreate your machines. If you cannot currently, here is a workaround:
+Change the line `v.name` in:
+```
+c.vm.provider "virtualbox" do |v|
+    v.name = "#{HOSTNAME}" # virtualbox name
+  end
+```
+from `"#{HOSTNAME}"` to whatever the name of your machine is in the virtualbox UI (usually `vm-psim-default-.....`).
 
 > Currently the vagrant mv domain names are still not accessible outside of the local computer.
 ----
@@ -39,7 +47,7 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 ## General Information
 - The main administrator user is `vagrant`, the password is `vagrant`.
 - The password for the `Administrator` account is also `vagrant`. However, you shouldn't need to use it, since `vagrant` is an admin.
-- You can reach your vagrant machine at `{MACHINE_NAME}.printeron.local`, for you convenience the domain and IP are printed when any vagrant command is executed.
+- You can reach your vagrant machine at `{MACHINE_NAME}`, for you convenience the domain and IP are printed when the machine is created.
 
 ### Updating your base box
 > ***Only do this step if you are notified on slack of a new base box version.***
