@@ -41,5 +41,5 @@ Vagrant.configure("2") do |c|
 
   #### install PSIM if the psim.exe and license.txt are present in the ./installer folder. ####
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
-  c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: true, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
+  c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: false, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
 end
