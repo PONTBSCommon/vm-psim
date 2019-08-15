@@ -3,6 +3,9 @@ A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
 
+**Please always attempt to access your machine by its `*.printeron.local` domain name.**
+
+> Currently the vagrant mv domain names are still not accessible outside of the local computer.
 ----
 
 ## Common Commands
@@ -17,6 +20,7 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 | **Update VM Image**             | `vagrant box update`  | Update the base box your machine is built from.                                                 |
 | **Upgrade PSIM**                | `vagrant provision`   | Run the PsimInstaller script, to upgrade PSIM.                                                  |
 | **Reload (Restart Machine)**    | `vagrant reload`      | This command restarts the vagrant machine, and picks up any changes to the vagrant file.        |
+| **Show Machine Status (and IP)**| `vagrant status`      | This will tell you if your machine is running. and will also print out your ip, and domain.     |
 
 ----
 
@@ -35,8 +39,11 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 ## General Information
 - The main administrator user is `vagrant`, the password is `vagrant`.
 - The password for the `Administrator` account is also `vagrant`. However, you shouldn't need to use it, since `vagrant` is an admin.
+- You can reach your vagrant machine at `{MACHINE_NAME}.printeron.local`, for you convenience the domain and IP are printed when any vagrant command is executed.
 
 ### Updating your base box
+> ***Only do this step if you are notified on slack of a new base box version.***
+
 To update your base box. Open a powershell window, and navigate to the vm-psim folder.
 run the command:
 ``` Powershell
@@ -64,9 +71,7 @@ vm-psim/                <-- the vm-psim repository folder.
   Readme.md             <-- This help document.
   deploy/
     ...
-  triggers/
-    ...
-  scripts/
+  scripts/              <-- Setup scripts for the machine (Don't touch)
     ...
 ```
 
