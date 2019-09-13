@@ -13,6 +13,8 @@ Vagrant.configure("2") do |c|
   c.vm.communicator = "winrm"
   c.vm.network "public_network"
 
+  c.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true, id: "remote desktop connection"
+
   c.vm.post_up_message = <<-POST_MSG
   VM-PSIM is running! Here's some options:
 
