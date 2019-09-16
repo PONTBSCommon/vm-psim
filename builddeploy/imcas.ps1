@@ -14,37 +14,18 @@ param(
 . "$PSScriptRoot/lib/util.ps1"
 . "$PSScriptRoot/lib/constants.ps1"
 
-if (!$IMCASFolder -or !(Test-Path $IMCASFolder)) {
-  throw "A valid value for IMCASFolder must be provided."
-}
-
-try {
-  $VagrantFolder = (Resolve-Path $VagrantFolder)
-} catch {
-  throw "VagrantFolder value: [$VagrantFolder] provided was invalid."
-}
+validateFolderPath $IMCASFolder "-IMCASFolder param must be a valid path."
+validateFolderPath $VagrantFolder "-VagrantFolder path must be a valid path."
 
 if (!$NoBuild) {
-  writeYellow "Attempting to clean target folders."
-  Get-ChildItem -Recurse -Depth 3 -Path $IMCASFolder -Directory -Filter 'target' | % { 
-    Remove-Item -Recurse -Force $_.FullName
-  }
+  Recurse-RemoveTargetFolders $IMCASFolder 3
 
   writeYellow "Starting the maven build."
-  $BuildSucceeded = Invoke-MavenBuild -ProjectFolder $IMCASFolder `
-    -MavenOptions "clean install $(if (!$Test) {'-DskipTests'}) -Punit-tests" `
-    -Verbose:$Verbose -Test:$Test
-} else {
-  $BuildSucceeded = $true
-  writeYellow 'Skipping build ... checking for target file.'
-  if (!(Test-Path "$IMCASFolder/imcas-war/target/imcas.war")) {
-    writeRed '-NoBuild was specified, but a build artifact was not found. aborting'
-    return $false
-  }
-}
+  Invoke-MavenBuild -ProjectFolder $IMCASFolder -MavenOptions "clean install $(if (!$Test) {'-DskipTests'})" -Verbose:$Verbose
 
-if (!$BuildSucceeded) {
-  throw "maven build failed... aborting."
+} else {
+  writeYellow 'Skipping build ... checking for target file.'
+  validateFilePath "$IMCASFolder/imcas-war/target/imcas.war" '-NoBuild was specified, but a build artifact was not found. aborting'
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"
