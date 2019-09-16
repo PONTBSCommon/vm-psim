@@ -15,15 +15,13 @@ param(
 . "$PSScriptRoot/lib/constants.ps1"
 
 if (!$CPSFolder -or !(Test-Path $CPSFolder)) {
-  writeRed "A valid value for CPSFolder must be provided."
-  return $false
+  throw "A valid value for CPSFolder must be provided."
 }
 
 try {
   $VagrantFolder = (Resolve-Path $VagrantFolder)
 } catch {
-  writeRed "VagrantFolder value: [$VagrantFolder] provided was invalid."
-  return $false
+  throw "VagrantFolder value: [$VagrantFolder] provided was invalid."
 }
 
 if (!$NoBuild) {
@@ -40,14 +38,12 @@ if (!$NoBuild) {
   $BuildSucceeded = $true
   writeYellow 'Skipping build ... checking for target file.'
   if (!(Test-Path "$CPSFolder/cpsweb/target/cps.war")) {
-    writeRed '-NoBuild was specified, but a build artifact was not found. aborting'
-    return $false
+    throw '-NoBuild was specified, but a build artifact was not found. aborting'
   }
 }
 
 if (!$BuildSucceeded) {
-  writeRed "maven build failed... aborting."
-  return $false
+  throw "maven build failed... aborting."
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"

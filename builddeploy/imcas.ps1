@@ -15,15 +15,13 @@ param(
 . "$PSScriptRoot/lib/constants.ps1"
 
 if (!$IMCASFolder -or !(Test-Path $IMCASFolder)) {
-  writeRed "A valid value for IMCASFolder must be provided."
-  return $false
+  throw "A valid value for IMCASFolder must be provided."
 }
 
 try {
   $VagrantFolder = (Resolve-Path $VagrantFolder)
 } catch {
-  writeRed "VagrantFolder value: [$VagrantFolder] provided was invalid."
-  return $false
+  throw "VagrantFolder value: [$VagrantFolder] provided was invalid."
 }
 
 if (!$NoBuild) {
@@ -46,8 +44,7 @@ if (!$NoBuild) {
 }
 
 if (!$BuildSucceeded) {
-  writeRed "maven build failed... aborting."
-  return $false
+  throw "maven build failed... aborting."
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"
