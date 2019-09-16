@@ -12,3 +12,6 @@ choco install zip unzip
 
 echo "Installing baretail log viewer."
 choco install baretail
+
+echo "Installing MSSQL Management Studio."
+choco install sql-server-management-studio
