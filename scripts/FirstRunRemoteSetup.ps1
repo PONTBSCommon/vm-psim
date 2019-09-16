@@ -12,6 +12,3 @@ choco install zip unzip
 
 echo "Installing baretail log viewer."
 choco install baretail
-
-echo "Copying In psim-manage module."
-Copy-Item -Recurse -Force /vagrant/psim-manage $env:USERPROFILE\Documents\WindowsPowerShell\Modules\psim-manage
