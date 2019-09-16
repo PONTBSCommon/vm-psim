@@ -1,12 +1,13 @@
 
 . 'C:\vagrant\scripts\Globals.ps1'
+
 #### DEFINE OPTIONS ####
 $PsimOptions = [ordered]@{
   Mode       = 'Auto';
   UserName   = "$($env:COMPUTERNAME)\\vagrant";
   Password   = "vagrant";
   ConfigFile = $LicenseFile;
-  # InstallType = 'Install';
+  InstallType = 'Install';
 }
 
 
@@ -68,4 +69,3 @@ $InstallTimer.Stop()
 #### ONCE THE INSTALLATION IS COMPLETED SUCCESSFULLY, RUN THE FIRST SETUP. ####
 Write-Host -ForegroundColor Green "Your PSIM Installation is complete. Elapsed: $($InstallTimer.Elapsed)"
 Write-Host -ForegroundColor Yellow 'Running first setup on the remote machine ... '
-& $FirstRunRemoteSetupScript
