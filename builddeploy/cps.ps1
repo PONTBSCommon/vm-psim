@@ -29,9 +29,13 @@ if (!$NoBuild) {
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"
+
 Stop-CPS
+writeYellow "Backing up old deployment artifacts."
 Copy-VagrantArtifact "$TomcatWebappDir/cps.war" 'C:/vagrant/deploy/cps.old.war'
 Remove-VagrantArtifact "$TomcatWebappDir/cps"
+
+writeYellow "Deploying new deployment artifacts."
 Copy-Item "$CPSFolder/cpsweb/target/cps.war" "$VagrantFolder/deploy/cps.new.war" -Force
 Copy-VagrantArtifact "C:/vagrant/deploy/cps.new.war" "$TomcatWebappDir/cps.war"
 Start-CPS

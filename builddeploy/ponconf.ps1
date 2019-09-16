@@ -24,7 +24,7 @@ if (!$NoBuild) {
   Invoke-MavenBuild -ProjectFolder $PonConfFolder -MavenOptions "clean install $(if (!$Test) {'-DskipTests'})" -Verbose:$Verbose
 } else {
   writeYellow 'Skipping build ... checking for target file.'
-  validateFilePath "$IMCASFolder/target/printeron-web.war" '-NoBuild was specified, but a build artifact was not found. aborting'
+  validateFilePath "$PonConfFolder/target/printeron-web.war" '-NoBuild was specified, but a build artifact was not found. aborting'
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"
@@ -37,7 +37,7 @@ Copy-VagrantArtifact "$PonConfPropertiesDir/ponconf.properties" "C:/vagrant/depl
 
 writeYellow "Deploying new deployment artifacts."
 Copy-Item -Force "$PonConfFolder/target/printeron-web.war" "$VagrantFolder/deploy/printeron-web.new.zip"
-Expand-VagrantArtifact "C:/vagrant/deploy/printeron-web.new.zip" "$PSIMParentDir/printeron-web"
+Expand-VagrantArchive "C:/vagrant/deploy/printeron-web.new.zip" "$PSIMParentDir/printeron-web"
 Copy-VagrantArtifact "C:/vagrant/deploy/persistence.old.properties" "$PonConfPropertiesDir/persistence.properties"
 Copy-VagrantArtifact "C:/vagrant/deploy/ponconf.old.properties" "$PonConfPropertiesDir/ponconf.properties"
 Start-PonConf

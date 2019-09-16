@@ -29,9 +29,13 @@ if (!$NoBuild) {
 }
 
 writeYellow "Starting the deploy process, to vagrant machine at: $VagrantFolder"
+
 Stop-IMCAS
+writeYellow "Backing up old deployment artifacts."
 Copy-VagrantArtifact "$TomcatWebappDir/imcas.war" 'C:/vagrant/deploy/imcas.old.war'
 Remove-VagrantArtifact "$TomcatWebappDir/imcas"
+
+writeYellow "Deploying new deployment artifacts."
 Copy-Item "$IMCASFolder/imcas-war/target/imcas.war" "$VagrantFolder/deploy/imcas.new.war" -Force
 Copy-VagrantArtifact "C:/vagrant/deploy/imcas.new.war" "$TomcatWebappDir/imcas.war"
 Start-IMCAS

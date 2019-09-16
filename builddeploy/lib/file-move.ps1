@@ -42,7 +42,7 @@ function Remove-VagrantArtifact($Path) {
 #>
 function Compress-VagrantFolder($FolderPath, $ArchivePath) {
   if (hasVagrantfile) {
-    vagrant powershell -c "Compress-Archive -CompressionLevel Fastest -Path '$FolderPath' -DestinationPath '$ArchivePath'"
+    vagrant powershell -c "Compress-Archive -CompressionLevel Fastest -Path '$FolderPath' -DestinationPath '$ArchivePath' -Force"
   }
 }
 
