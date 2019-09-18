@@ -20,7 +20,7 @@ Vagrant.configure("2") do |c|
 
     Connect via RDP         => vagrant rdp
     Connect via Powershell  => vagrant powershell
-    DNS Domain Name         => https://#{HOSTNAME.downcase}.printeron.local/
+    DNS Domain Name         => https://#{HOSTNAME.downcase}/
     IPv4 Address            => #{MACHINE_IP}
 
   POST_MSG
