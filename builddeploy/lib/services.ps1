@@ -7,6 +7,7 @@ $Script:StopService = @{
   CPS     = 'tomcat8.exe'
   IMCAS   = 'tomcat8.exe' # imcas and cps are on the same tomcat service.
   PonConf = 'PonConfigurationManager.exe'
+  PDS = 'DirectorService.exe'
 }
 
 # for stopping services
