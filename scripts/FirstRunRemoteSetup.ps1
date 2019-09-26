@@ -8,7 +8,10 @@ echo 'Add file that indicated this initial setup has been done before.'
 New-Item -Force $SetupMarker; echo 'DO NOT REMOVE' > $SetupMarker
 
 echo "Installing zip tools."
-choco install zip unzip
+choco install --no-progress zip unzip
 
-echo "Copying In psim-manage module."
-Copy-Item -Recurse -Force /vagrant/psim-manage $env:USERPROFILE\Documents\WindowsPowerShell\Modules\psim-manage
+echo "Installing baretail log viewer."
+choco install --no-progress baretail
+
+echo "Installing MSSQL Management Studio."
+choco install --no-progress sql-server-management-studio

@@ -35,3 +35,22 @@ function Remove-VagrantArtifact($Path) {
     "
   }
 }
+
+<#
+  Compresses the given folder, into an archive on the vagrant machine.
+  Places the archive at the given path.
+#>
+function Compress-VagrantFolder($FolderPath, $ArchivePath) {
+  if (hasVagrantfile) {
+    vagrant powershell -c "Compress-Archive -CompressionLevel Fastest -Path '$FolderPath' -DestinationPath '$ArchivePath' -Force"
+  }
+}
+
+<#
+  Expands an archive into a given location on the vagrant machine..
+#>
+function Expand-VagrantArchive($ArchivePath, $DestinationFolder) {
+  if (hasVagrantfile) {
+    vagrant powershell -c "Expand-Archive '$ArchivePath' '$DestinationFolder' -Force"
+  }
+}
