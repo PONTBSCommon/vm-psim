@@ -14,6 +14,7 @@ $Script:StartService = @{
   CPS     = 'Central Print Services'
   IMCAS   = 'Central Print Services' # imcas and cps are on the same tomcat service.
   PonConf = 'Pon Configuration Manager'
+  PDS = 'Print Delivery Station'
 }
 
 <#
@@ -35,12 +36,16 @@ function Start-CPS() { Invoke-ServiceStart CPS }
 function Start-IMCAS() { Invoke-ServiceStart IMCAS }
 function Start-PonConf() { Invoke-ServiceStart PonConf }
 
+function Start-PDS() { Invoke-ServiceStart PDS }
+
 # stopping services
 function Stop-CPS() { Invoke-ServiceStop CPS }
 function Stop-IMCAS() { Invoke-ServiceStop IMCAS }
 function Stop-PonConf() { Invoke-ServiceStop PonConf }
+function Stop-PDS() { Invoke-ServiceStop PDS }
 
 # restart services
 function Restart-CPS() { Stop-CPS; Start-CPS }
 function Restart-IMCAS() { Stop-IMCAS; Start-IMCAS }
 function Restart-PonConf() { Stop-PonConf; Start-PonConf }
+function Restart-PDS() { Stop-PDS; Start-PDS }
