@@ -1,6 +1,8 @@
 #### INSIDE VM LOCATIONS ####
 $SetupMarker = 'C:\Program Files\PrinterOn Corporation\initial-vagrant-setup-marker.txt'
 $MobileCertificateSaveLocation = 'C:\Users\vagrant\Downloads\atca.cer'
+$TomcatServerFile = 'C:\Program Files (x86)\PrinterOn Corporation\Apache Tomcat\Conf\server.xml'
+$ServerCertFolder = 'C:\Certs'
 
 #### PSIM INSTALLER CONSTANTS ####
 # \\ is used because of the legacy installer.
