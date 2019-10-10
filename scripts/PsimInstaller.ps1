@@ -27,7 +27,7 @@ if (!(Test-Path $PsimInstaller) -or !(Test-Path $LicenseFile)) {
 # }
 
 #### START PSIM INSTALLATION ####
-$PsimOptionString = $(($PsimOptions.GetEnumerator() | % { $_.Key + ":" + $_.Value }) -join '|')
+$PsimOptionString = $(($PsimOptions.GetEnumerator() | ForEach-Object { $_.Key + ":" + $_.Value }) -join '|')
 $cmdPromptCommand = "start /wait $PsimInstaller `"$PsimOptionString`""
 
 Write-Host -ForegroundColor Yellow "Expecting Logfile at: `n`t$InstallationLogfile"
@@ -50,7 +50,7 @@ $lines = 0
 while (@('Completed', 'Failed') -notcontains $InstallJob.State) {
   $newLines = ((Get-Content $InstallationLogfile).length) - $lines
   $lines += $newLines
-  if ($newLines -gt 0) { Get-Content $InstallationLogfile -Tail $newLines | % { Write-Output "$($InstallTimer.elapsed) :: $_" } }
+  if ($newLines -gt 0) { Get-Content $InstallationLogfile -Tail $newLines | ForEach-Object { Write-Output "$($InstallTimer.elapsed) :: $_" } }
 }
 
 #### ON INSTALLER COMPLETION ####
@@ -58,7 +58,7 @@ if ($InstallJob.State -eq 'Failed') {
   Write-Host -ForegroundColor Red "PSIM Installer Failed..."; return 1
 } else { 
   Write-Host -ForegroundColor Green "PSIM Installer Completed Successfully..."
-  $PonConfPassword = $(Get-Content $LicenseFile | ? { $_ -like '*auth*' } | % { $_ -replace 'APIsiteAuth = ' })
+  $PonConfPassword = $(Get-Content $LicenseFile | Where-Object { $_ -like '*auth*' } | ForEach-Object { $_ -replace 'APIsiteAuth = ' })
 
   Write-Host -ForegroundColor Yellow "`n`n`tYour initial PonConf Password is:" -NoNewline
   Write-Host -ForegroundColor Magenta "`t$PonConfPassword"
