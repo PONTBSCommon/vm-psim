@@ -15,3 +15,6 @@ choco install --no-progress baretail
 
 echo "Installing MSSQL Management Studio."
 choco install --no-progress sql-server-management-studio
+
+echo "Installing OpenSSL"
+choco install --no-progress openssl.light
