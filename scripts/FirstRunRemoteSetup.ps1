@@ -13,8 +13,8 @@ choco install --no-progress zip unzip
 echo "Installing baretail log viewer."
 choco install --no-progress baretail
 
-echo "Installing MSSQL Management Studio."
-choco install --no-progress sql-server-management-studio
+echo "Upgrading MSSQL Management Studio."
+choco upgrade --no-progress sql-server-management-studio
 
 echo "Installing OpenSSL"
 choco install --no-progress openssl.light

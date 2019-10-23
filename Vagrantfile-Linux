@@ -2,18 +2,14 @@
 #### From: https://support.microsoft.com/en-gb/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and
 #### NetBIOS computer names cannot contain the following characters: \ / : * ? " < > |
 HOSTNAME = "#{`hostname`[0..-2]}-" + File.basename(Dir.getwd).gsub(/[^\w\s]/i,'').upcase
-### (Optional) Get IP address of vagrant machine - ONLY WORKS ON WINDOWS HOST
-MACHINE_IP = ("#{`ping -4 -n 1 #{HOSTNAME}`}".match(/\d*\.\d*\.\d*\.\d*/) || ['NO_ADDRESS_FOUND'])[0]
-MACHINE_IP = 'NO_ADDRESS_FOUND' if MACHINE_IP.include? "Request timed out."
-MACHINE_IP = 'NO_ADDRESS_FOUND' if MACHINE_IP.include? "Ping request could not find host"
 
 Vagrant.configure("2") do |c|
   #### (Required) always make sure you get the latest box when recreating your machine. ####
   c.vm.box_check_update = true
   c.vm.box = "pengboz/windows2016"
   c.vm.communicator = "winrm"
-  # Replace NETWORK_ADAPTER_NAME with your own
-  c.vm.network "public_network", bridge: "NETWORK_ADAPTER_NAME"
+  # Replace "eno1" if necessary
+  c.vm.network "public_network", bridge: "eno1"
 
   ### We will update vbguest when big version bump along with base image update.
   if Vagrant.has_plugin?("vagrant-vbguest")
@@ -23,27 +19,13 @@ Vagrant.configure("2") do |c|
   ### (Required)
   c.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true, id: "remote desktop connection"
 
-  #### (Optional) Provide RDP and IP address info
-  c.vm.post_up_message = <<-POST_MSG
-  VM-PSIM is running! Here's some options:
-
-    Connect via RDP         => vagrant rdp
-    Connect via Powershell  => vagrant powershell
-    DNS Domain Name         => https://#{HOSTNAME.downcase}/
-    IPv4 Address            => #{MACHINE_IP}
-
-  POST_MSG
-
   #### (Required) This section deals with naming the machine. ####
   c.vm.define "#{HOSTNAME.downcase}" # vagrant machine name
   c.vm.hostname = HOSTNAME # windows hostname
   c.vm.provider "virtualbox" do |v|
     v.name = "#{HOSTNAME}" # virtualbox name
-  end
-
-  #### (Optional) Flush DNS entries for the machines before up. ####
-  c.trigger.before :up, :reload do |t| 
-    t.ruby do || `ipconfig /flushdns` end
+    v.memory = 8192
+    v.cpus = 2
   end
 
   #### (Required) install PSIM if the psim.exe and license.txt are present in the ./installer folder. ####
