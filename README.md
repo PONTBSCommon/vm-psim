@@ -10,6 +10,7 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 4. If your host is Ubuntu server, you need to install WinSCP in oder to upload your vagrant folder to the server.
 5. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 6. Make sure your license file is not expired and you did not alter it anyhow. Otherwise, you may obtain PSIM license file from Nowshi Nahrin.
+7. Make sure "ServiceURL" in your license.txt file is "https://127.0.0.1/cps"
 
 ## Quick Start ## 
 ![Screenshot](https://github.azc.ext.hp.com/PONCommon/images-in-readme/blob/master/vg-psim/Vagrant%20Quick%20Start.png)
