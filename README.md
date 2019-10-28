@@ -7,7 +7,7 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 1. If your host is Windows or macOS, download and install Vagrant from [here](https://www.vagrantup.com/downloads.html).
 2. If your host computer is Windows, download [PowerShell 6](https://github.com/PowerShell/PowerShell/releases/tag/v6.2.3) and install it, then run it as Administrator.
 3. If your host is Ubuntu server, create SSH keys to access the server by following [this documentation](https://github.azc.ext.hp.com/PONCommon/vm-psim/wiki/Install-and-config-PuTTY-on-Windows).
-4. If your host is Ubuntu server, you need to install WinSCP in oder to upload your vagrant folder to the server.
+4. If your host is Ubuntu server, you need to have [WinSCP](https://github.azc.ext.hp.com/PONCommon/vm-psim/wiki/Config-WinSCP-with-SSH-access) installed in oder to upload your vagrant folder to the server.
 5. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 6. Make sure your license file is not expired and you did not alter it anyhow. Otherwise, you may obtain PSIM license file from Nowshi Nahrin.
 7. Make sure the "ServiceURL" in your license.txt file is "https://127.0.0.1/cps"
