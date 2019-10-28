@@ -2,6 +2,59 @@
 A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
+## Quick Start ## 
+![Screenshot](https://github.azc.ext.hp.com/PONCommon/images-in-readme/blob/master/vg-psim/Vagrant%20Quick%20Start.png)
+
+#### Ubuntu
+
+
+- Download this project to your computer
+
+- Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
+
+- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+
+- Copy PSIM.exe and license.txt files to installer folder
+
+- Upload entire “yournamevm” folder to Ubuntu via WinSCP
+
+- Use SSH client like “Putty” navigate into the “yournamevm” folder on Ubuntu 
+
+- Run `vagrant up` command
+
+
+#### Windows
+
+
+- Download this project to your computer
+
+- Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
+
+- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+
+- Copy PSIM.exe and license.txt files to installer folder
+
+- Navigate into the “yournamevm” folder from PowerShell 6
+
+- Run `vagrant up` command
+
+
+#### macOS
+
+
+- Download this project to your computer
+
+- Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
+
+- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+
+- Copy PSIM.exe and license.txt files to installer folder
+
+- Navigate into the “yournamevm” folder from Terminal
+
+- Run `vagrant up` command
+
+
 
 ## Breaking Change Support ##
 Old machine may not connect anymore. You should delete and recreate your machines. If you cannot currently, here is a workaround:
