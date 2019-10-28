@@ -2,6 +2,14 @@
 A PSIM ready Windows Virtualbox for local PSIM development.
 
 The goal is to never have to open the virtualbox gui, or interact with virtualbox outside of the command line.
+
+## Prerequisites
+1. If your host is Windows or macOS, download and install Vagrant from [here](https://www.vagrantup.com/downloads.html).
+2. If your host computer is Windows, download [PowerShell 6](https://github.com/PowerShell/PowerShell/releases/tag/v6.2.3) and install it, then run it as Administrator.
+3. If your host is Ubuntu server, create SSH keys to access the server by following [this documentation](https://github.azc.ext.hp.com/PONCommon/vm-psim/wiki/Install-and-config-PuTTY-on-Windows).
+4. If your host is Ubuntu server, you need to install WinSCP in oder to upload your vagrant folder to the server.
+5. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
 ## Quick Start ## 
 ![Screenshot](https://github.azc.ext.hp.com/PONCommon/images-in-readme/blob/master/vg-psim/Vagrant%20Quick%20Start.png)
 
