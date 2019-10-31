@@ -13,6 +13,7 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 7. Make sure the "ServiceURL" in your license.txt file is "https://127.0.0.1/cps"
 
 ## Quick Start ## 
+(Right click on the image, then click "Open Image in New Tab" for **better view**)
 ![Screenshot](https://github.azc.ext.hp.com/PONCommon/images-in-readme/blob/master/vg-psim/Vagrant%20Quick%20Start.png)
 
 #### Ubuntu
