@@ -52,6 +52,7 @@ Vagrant.configure("2") do |c|
   c.vm.provision "shell", name: "Update License", privileged: true, reboot: false, keep_color: true, path: "scripts/ModifyLicense.ps1"
   c.vm.provision "shell", name: "PSIM Installer", privileged: true, reboot: true, keep_color: true, path: "scripts/PsimInstaller.ps1"
   c.vm.provision "shell", name: "First Run Setup", privileged: true, reboot: false, keep_color: true, path: "scripts/FirstRunRemoteSetup.ps1"
+  c.vm.provision "shell", name: "Install trusted root to Java cacerts Keystore", privileged: true, reboot: false, keep_color: true, path: "scripts/InstallRootToKeystore.ps1"
   c.vm.provision "shell", name: "Create TLS Cert", privileged: true, reboot: false, keep_color: true, path: "scripts/TLSCertCreation.ps1"
   c.vm.provision "shell", name: "Modify Tomcat", privileged: true, reboot: false, keep_color: true, path: "scripts/TomcatModification.ps1"
 end
