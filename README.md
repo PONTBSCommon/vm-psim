@@ -23,9 +23,9 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 
 - Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
 
-- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+- Go into the “yournamevm” folder and find **Vagrant-XXX** file based on your environment and rename it to **Vagrantfile**
 
-- Copy PSIM.exe and license.txt files to installer folder
+- Copy **PSIM.exe** and **license.txt** files to installer folder
 
 - Upload entire “yournamevm” folder to Ubuntu via WinSCP
 
@@ -41,9 +41,9 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 
 - Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
 
-- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+- Go into the “yournamevm” folder and find **Vagrant-XXX** file based on your environment and rename it to **Vagrantfile**
 
-- Copy PSIM.exe and license.txt files to installer folder
+- Copy **PSIM.exe** and **license.txt** files to installer folder
 
 - Navigate into the “yournamevm” folder from PowerShell 6
 
@@ -57,9 +57,9 @@ The goal is to never have to open the virtualbox gui, or interact with virtualbo
 
 - Duplicate the project folder and rename it like “yournamevm”(one word without spaces or any special characters)
 
-- Go into the “yournamevm” folder and find Vagrant-XXX file based on your environment and rename it to Vagrantfile
+- Go into the “yournamevm” folder and find **Vagrant-XXX** file based on your environment and rename it to **Vagrantfile**
 
-- Copy PSIM.exe and license.txt files to installer folder
+- Copy **PSIM.exe** and **license.txt** files to installer folder
 
 - Navigate into the “yournamevm” folder from Terminal
 
